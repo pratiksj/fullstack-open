@@ -1,10 +1,6 @@
-console.log('this is index.js')
-const Myh1 =()=>{
-    return React.createElement('h1',{},'This is from REACT H1 Componet')
+import ReactDOM from "react-dom/client";
+import App from "./components/App";
+console.log("this is index.js");
 
-}
-const App =()=> {
-    return React.createElement('div',{},[Myh1(),Myh1(),Myh1()])
-
-}
-ReactDOM.render(App(),document.querySelector('#root')) ///render dispaly/load garxa
+//ReactDOM.render(App(), document.querySelector("#root")); ///render dispaly/load garxa
+ReactDOM.createRoot(document.querySelector("#root")).render(<App />);
