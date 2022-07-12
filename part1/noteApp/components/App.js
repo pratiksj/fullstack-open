@@ -13,18 +13,25 @@ import React, { useState } from "react";
 const App = ({ counter }) => {
   const [myCount, setMyCount] = useState(1);
 
-  setTimeout(() => {
-    setMyCount(myCount + 1);
-  }, 1000);
+  //const increaseCount = () => setMyCount(myCount + 1);
+
+  //setTimeout(() => {
+  //setMyCount(myCount + 1);
+  //}, 1000);
   let name1 = "pratiksha";
-  console.log(name1);
+  let increment = () => setMyCount(myCount + 1);
+  let decrement = () => setMyCount(myCount - 1);
 
   return (
     <div>
-      <h1>hellow {myCount} </h1>
+      <button onClick={increment}>increase</button> &nbsp; &nbsp;
+      <button onClick={decrement}>decrease</button>
+      <h1>
+        hellow {name1} {myCount}
+      </h1>
       <h1>{counter}</h1>
       <Myh1
-        name={name1}
+        //name={name1}
         lastName="somelastname"
         count={myCount}
         count1={counter}
