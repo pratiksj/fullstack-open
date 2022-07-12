@@ -1,4 +1,4 @@
-/*import React from "react";
+/*import React from "react"; //
 import Myh1 from "./Myh1";
 
 const App = () => {
@@ -22,3 +22,4 @@ const App = () => {
 };
 
 export default App;
+//arko javascript  file(react.js) bata access garna ko lagi export gareko
