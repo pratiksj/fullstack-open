@@ -1,4 +1,6 @@
 import { useState } from "react";
+import MostVote from "./Mostvote";
+
 function App() {
   const anecdotes = [
     "If it hurts, do it more often.",
@@ -11,21 +13,13 @@ function App() {
   ];
 
   const [selected, setSelected] = useState(0);
-  const [voteState, setVote] = useState({
-    0: 0,
-    1: 0,
-    2: 0,
-    3: 0,
-    4: 0,
-    5: 0,
-    6: 0,
-  });
+  const [voteState, setVote] = useState(Array(7).fill(0));
   const randomGen = () => {
     let randomNum = Math.floor(Math.random() * anecdotes.length);
     setSelected(randomNum);
   };
   const points = () => {
-    const copy = { ...voteState };
+    const copy = [...voteState];
     copy[selected] = copy[selected] + 1;
     setVote(copy);
   };
@@ -36,6 +30,8 @@ function App() {
       <p>has {voteState[selected]} votes</p>
       <button onClick={points}>Vote</button>
       <button onClick={randomGen}>next anecdotes</button>
+      <p>Anecdotes with the most votes </p>
+      <MostVote newVote={voteState} anec={anecdotes} />
     </div>
   );
 }
