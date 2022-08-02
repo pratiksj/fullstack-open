@@ -1,14 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
+import axios from "axios";
+
 function App() {
   const [persons, setPerson] = useState([
-    { name: "Pratisha", Number: 9843866516, Id: 1 },
+    { name: "Pratisha", Number: 9843866516, id: 1 },
   ]);
+
   const [newName, setNewName] = useState("");
   const [numbers, setNumbers] = useState("");
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/persons")
+      .then((response) => {
+        //console.dir(response.data);
+        setPerson(response.data);
+      })
+      .catch((error) => console.log("this is error", error));
+  }, []);
+
   const showPersons =
     search === "" ? persons : persons.filter((x) => x.name.includes(search));
 
@@ -23,7 +37,7 @@ function App() {
       const newPerson = {
         name: newName,
         Number: numbers,
-        Id: persons.length + 1,
+        id: persons.length + 1,
       };
 
       setPerson([...persons, newPerson]);

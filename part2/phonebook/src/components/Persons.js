@@ -3,9 +3,9 @@ const Persons = ({ name }) => {
     <>
       <div>
         {name.map((y) => (
-          <li key={y.Id}>
+          <li key={y.id}>
             {y.name}
-            {y.Number}
+            {y.number}
           </li>
         ))}
       </div>
