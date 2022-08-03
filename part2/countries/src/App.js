@@ -4,6 +4,7 @@ import axios from "axios";
 function App() {
   const [search, setSearch] = useState("");
   const [stateData, setStateData] = useState([]);
+  const [displayData, setDisplayData] = useState([]);
 
   useEffect(() => {
     axios.get("https://restcountries.com/v3.1/all").then((result) => {
@@ -12,14 +13,18 @@ function App() {
     });
   }, []);
 
-  const showState = stateData.filter((x) =>
-    x.name.common.toLowerCase().includes(search.toLowerCase())
-  );
+  // const showState = stateData.filter((x) =>
+  //   x.name.common.toLowerCase().includes(search.toLowerCase())
+  // );
 
   const findHandler = (e) => {
     setSearch(e.target.value);
+    const filteredState = stateData.filter((state) => {
+      return state.name.common.toLowerCase().includes(e.target.value);
+    });
+    setDisplayData(filteredState);
   };
-
+  console.log(displayData);
   return (
     <>
       <div>
@@ -27,9 +32,13 @@ function App() {
         <input value={search} onChange={findHandler} />
       </div>
       <div>
-        {showState.map((state) => (
-          <li key={state.id}>{state.name.common}</li>
-        ))}
+        {displayData.length > 10 ? (
+          <p>too many matches,specify another filter</p>
+        ) : (
+          displayData.map((state) => (
+            <li key={state.id}>{state.name.common}</li>
+          ))
+        )}
       </div>
     </>
   );
