@@ -10,8 +10,8 @@ const CountryDetails = ({ x }) => {
   useEffect(() => {
     axios
       .get(
-        `http://api.weatherapi.com/v1/current.json?key=6e9ca429441d4350b2731537220508&q=${x.capital[0]}&aqi=no`
-      )
+        `http://api.weatherapi.com/v1/current.json?key=${process.env.REACT_APP_WEATHER_API}&q=${x.capital[0]}&aqi=no`
+      ) // environment variable process node variable lai read garxa
       .then((result) => {
         console.log(result);
         setWeather({
