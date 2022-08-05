@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import CountryDetails from "./components/CountryDetails";
+import CountryList from "./components/CoutryList";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -24,22 +26,19 @@ function App() {
     });
     setDisplayData(filteredState);
   };
-  console.log(displayData);
+  //console.log(displayData);
   return (
     <>
-      <div>
-        Find countries name
-        <input value={search} onChange={findHandler} />
-      </div>
-      <div>
+      find countries <input value={search} onChange={findHandler} />
+      <>
         {displayData.length > 10 ? (
-          <p>too many matches,specify another filter</p>
+          <p>Too many matches specify filter</p>
+        ) : displayData.length === 1 ? (
+          <CountryDetails x={displayData[0]} />
         ) : (
-          displayData.map((state) => (
-            <li key={state.id}>{state.name.common}</li>
-          ))
+          <CountryList listOfCountries={displayData} />
         )}
-      </div>
+      </>
     </>
   );
 }
