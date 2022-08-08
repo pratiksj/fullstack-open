@@ -1,6 +1,15 @@
 import noteService from "../services/person";
 
 const Persons = ({ name, setPerson }) => {
+  const deletedId = (id) => {
+    const result = window.confirm("Are you sure ?");
+    if (result === false) {
+    } else
+      noteService.remove(id).then((response) => {
+        let deleteFilteredName = name.filter((filname) => filname.id !== id);
+        setPerson(deleteFilteredName);
+      });
+  };
   return (
     <>
       <div>
@@ -11,12 +20,7 @@ const Persons = ({ name, setPerson }) => {
             {y.number}
             <button
               onClick={() => {
-                noteService.remove(y.id).then((response) => {
-                  let deleteFilteredName = name.filter(
-                    (filname) => filname.id !== y.id
-                  );
-                  setPerson(deleteFilteredName);
-                });
+                deletedId(y.id);
               }}
             >
               delete
