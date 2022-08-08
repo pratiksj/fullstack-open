@@ -3,6 +3,7 @@ import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
 import axios from "axios";
+import noteService from "./services/person";
 
 function App() {
   const [persons, setPerson] = useState([]);
@@ -12,8 +13,9 @@ function App() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3001/persons")
+    noteService
+      .getAll()
+      //axios.get("http://localhost:3001/persons")
       .then((response) => {
         //console.dir(response.data);
         setPerson(response.data);
@@ -37,12 +39,12 @@ function App() {
         number: numbers,
         //id: persons.length + 1,
       };
-      axios
-        .post("http://localhost:3001/persons", newPerson)
-        .then((response) => {
-          console.log(response);
-          setPerson([...persons, response.data]);
-        });
+
+      //axios.post("http://localhost:3001/persons", newPerson)
+      noteService.create(newPerson).then((response) => {
+        console.log(response);
+        setPerson([...persons, response.data]);
+      });
     }
   };
   const handleOnChange = (event) => {
@@ -70,7 +72,7 @@ function App() {
         handleNum={handleNumChange}
       />
       <h2>Numbers</h2>
-      <Persons name={showPersons} />
+      <Persons name={showPersons} setPerson={setPerson} />
     </>
   );
 }

@@ -1,4 +1,6 @@
-const Persons = ({ name }) => {
+import noteService from "../services/person";
+
+const Persons = ({ name, setPerson }) => {
   return (
     <>
       <div>
@@ -7,6 +9,18 @@ const Persons = ({ name }) => {
             {y.name}
 
             {y.number}
+            <button
+              onClick={() => {
+                noteService.remove(y.id).then((response) => {
+                  let deleteFilteredName = name.filter(
+                    (filname) => filname.id !== y.id
+                  );
+                  setPerson(deleteFilteredName);
+                });
+              }}
+            >
+              delete
+            </button>
           </li>
         ))}
       </div>
