@@ -5,9 +5,7 @@ import Persons from "./components/Persons";
 import axios from "axios";
 
 function App() {
-  const [persons, setPerson] = useState([
-    { name: "Pratisha", Number: 9843866516, id: 1 },
-  ]);
+  const [persons, setPerson] = useState([]);
 
   const [newName, setNewName] = useState("");
   const [numbers, setNumbers] = useState("");
@@ -36,16 +34,20 @@ function App() {
     } else {
       const newPerson = {
         name: newName,
-        Number: numbers,
-        id: persons.length + 1,
+        number: numbers,
+        //id: persons.length + 1,
       };
-
-      setPerson([...persons, newPerson]);
+      axios
+        .post("http://localhost:3001/persons", newPerson)
+        .then((response) => {
+          console.log(response);
+          setPerson([...persons, response.data]);
+        });
     }
   };
   const handleOnChange = (event) => {
     setNewName(event.target.value);
-    //console.log(newName);
+    //console.log(newName)
   };
   const handleNumChange = (e) => {
     setNumbers(e.target.value);
