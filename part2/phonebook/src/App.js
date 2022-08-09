@@ -4,6 +4,7 @@ import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
 import axios from "axios";
 import noteService from "./services/person";
+import person from "./services/person";
 
 function App() {
   const [persons, setPerson] = useState([]);
@@ -29,10 +30,26 @@ function App() {
   const addNote = (event) => {
     event.preventDefault();
     //console.log(event.target);
-    let personExist = persons.some((person) => person.name === newName);
-    let numberExist = persons.some((number) => number.Number === numbers);
-    if (personExist && numberExist) {
-      alert(`${newName} is already added to phonebook`);
+    const personExist = persons.find((person) => person.name === newName);
+    console.log(person);
+
+    //const numberExist = persons.some((number) => number.number === numbers);
+    if (personExist) {
+      const result = window.confirm(
+        `${newName} is already added to phonebook,replace the old number with newone?`
+      );
+      if (result) {
+        personExist.number = numbers; // ysma hamle naya variab
+        noteService.update(personExist.id, personExist).then((response) => {
+          setPerson(
+            persons.map((x) => {
+              if (x.name === newName) {
+                return { ...x, updatedNum: numbers };
+              } else return x;
+            })
+          );
+        });
+      }
     } else {
       const newPerson = {
         name: newName,
@@ -42,7 +59,6 @@ function App() {
 
       //axios.post("http://localhost:3001/persons", newPerson)
       noteService.create(newPerson).then((response) => {
-        console.log(response);
         setPerson([...persons, response.data]);
       });
     }
