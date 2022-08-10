@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
-import axios from "axios";
+//import axios from "axios";
 import noteService from "./services/person";
 import person from "./services/person";
+import Notification from "./components/Notification";
 
 function App() {
   const [persons, setPerson] = useState([]);
@@ -12,6 +13,7 @@ function App() {
   const [newName, setNewName] = useState("");
   const [numbers, setNumbers] = useState("");
   const [search, setSearch] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     noteService
@@ -40,15 +42,26 @@ function App() {
       );
       if (result) {
         personExist.number = numbers; // ysma hamle naya variab
-        noteService.update(personExist.id, personExist).then((response) => {
-          setPerson(
-            persons.map((x) => {
-              if (x.name === newName) {
-                return { ...x, updatedNum: numbers };
-              } else return x;
-            })
-          );
-        });
+        noteService
+          .update(personExist.id, personExist)
+          .then((response) => {
+            setPerson(
+              persons.map((x) => {
+                if (x.name === newName) {
+                  return { ...x, updatedNum: numbers };
+                } else return x;
+              })
+            );
+            setErrorMessage(`Updated the number for ${personExist.name}`);
+            setTimeout(() => {
+              setErrorMessage(null);
+            }, 3000);
+          })
+          .catch((error) => {
+            setErrorMessage(
+              `${personExist.name} was already removed from the server`
+            );
+          });
       }
     } else {
       const newPerson = {
@@ -61,6 +74,10 @@ function App() {
       noteService.create(newPerson).then((response) => {
         setPerson([...persons, response.data]);
       });
+      setErrorMessage("Added " + newPerson.name);
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 3000);
     }
   };
   const handleOnChange = (event) => {
@@ -77,6 +94,7 @@ function App() {
   return (
     <>
       <h1>Phonebook</h1>
+      <Notification message={errorMessage} />
       <Filter find={search} display={onTypeShow} />
 
       <h1>Add New Name</h1>
