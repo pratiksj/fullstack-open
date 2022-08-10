@@ -14,6 +14,7 @@ function App() {
   const [numbers, setNumbers] = useState("");
   const [search, setSearch] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [color, setColor] = useState("");
 
   useEffect(() => {
     noteService
@@ -53,6 +54,7 @@ function App() {
               })
             );
             setErrorMessage(`Updated the number for ${personExist.name}`);
+            setColor("note");
             setTimeout(() => {
               setErrorMessage(null);
             }, 3000);
@@ -61,6 +63,10 @@ function App() {
             setErrorMessage(
               `${personExist.name} was already removed from the server`
             );
+            setColor("error");
+            setTimeout(() => {
+              setErrorMessage(null);
+            }, 3000);
           });
       }
     } else {
@@ -94,7 +100,7 @@ function App() {
   return (
     <>
       <h1>Phonebook</h1>
-      <Notification message={errorMessage} />
+      <Notification message={errorMessage} color={color} />
       <Filter find={search} display={onTypeShow} />
 
       <h1>Add New Name</h1>
