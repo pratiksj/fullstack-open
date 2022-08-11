@@ -1,6 +1,6 @@
 import noteService from "../services/person";
 
-const Persons = ({ name, setPerson }) => {
+const Persons = ({ name, setPerson, setErrorMessage }) => {
   //console.log(persons);
   const deletedId = (id) => {
     //const result = window.confirm(`Delete${name}`);
@@ -8,6 +8,10 @@ const Persons = ({ name, setPerson }) => {
     noteService.remove(id).then((response) => {
       let deleteFilteredName = name.filter((filname) => filname.id !== id);
       setPerson(deleteFilteredName);
+      setErrorMessage("Deleted");
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 3000);
     });
   };
   return (

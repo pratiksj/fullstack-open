@@ -1,6 +1,16 @@
 .error {
   color: red;
+  font-style: normal;
+  padding-top: 15px;
+  font-size: 30px;
+  background-color: grey;
+  text-align: center;
 }
 .note {
   color: green;
+  padding-top: 15px;
+  font-style: normal;
+  font-size: 30px;
+  background-color: aquamarine;
+  text-align: center;
 }

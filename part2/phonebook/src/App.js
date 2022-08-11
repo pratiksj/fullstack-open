@@ -112,7 +112,11 @@ function App() {
         handleNum={handleNumChange}
       />
       <h2>Numbers</h2>
-      <Persons name={showPersons} setPerson={setPerson} />
+      <Persons
+        name={showPersons}
+        setPerson={setPerson}
+        setErrorMessage={setErrorMessage}
+      />
     </>
   );
 }
