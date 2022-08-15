@@ -19,15 +19,25 @@ const Statistics = (props) => {
       <p>All:{props.sumAllFunc()}</p>
       <p>Average:{props.averageFunc()}</p>
       <p>Positive:{props.positiveFunc()}</p> */}
-        <StatisticLine text="Good" value={props.good} />
-        <StatisticLine text="Bad" value={props.bad} />
-        <StatisticLine text="Neutral" value={props.neutral} />
-        <StatisticLine
-          text="All"
-          value={props.good + props.bad + props.neutral}
-        />
-        <StatisticLine text="Average" value={(props.good - props.bad) / All} />
-        <StatisticLine text="Positive" value={(props.good / All) * 100 + "%"} />
+        <table>
+          <tbody>
+            <StatisticLine text="Good" value={props.good} />
+            <StatisticLine text="Bad" value={props.bad} />
+            <StatisticLine text="Neutral" value={props.neutral} />
+            <StatisticLine
+              text="All"
+              value={props.good + props.bad + props.neutral}
+            />
+            <StatisticLine
+              text="Average"
+              value={(props.good - props.bad) / All}
+            />
+            <StatisticLine
+              text="Positive"
+              value={(props.good / All) * 100 + "%"}
+            />
+          </tbody>
+        </table>
       </div>
     );
 };
