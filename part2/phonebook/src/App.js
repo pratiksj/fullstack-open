@@ -81,6 +81,7 @@ function App() {
         setPerson([...persons, response.data]);
       });
       setErrorMessage("Added " + newPerson.name);
+      setColor("note");
       setTimeout(() => {
         setErrorMessage(null);
       }, 3000);
@@ -116,6 +117,7 @@ function App() {
         name={showPersons}
         setPerson={setPerson}
         setErrorMessage={setErrorMessage}
+        setColor={setColor}
       />
     </>
   );

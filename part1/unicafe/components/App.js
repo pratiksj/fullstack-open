@@ -28,7 +28,9 @@ const App = () => {
   return (
     <div>
       <h1>Give Feedback</h1>
-      <Button goodfunc={goodfunc} neuFunc={neuFunc} badFunc={badFunc} />
+      <Button function={goodfunc} buttonName="Good" />
+      <Button function={neuFunc} buttonName="Neutral" />
+      <Button function={badFunc} buttonName="Bad" />
 
       <Statistics good={good} neutral={neutral} bad={bad} />
     </div>

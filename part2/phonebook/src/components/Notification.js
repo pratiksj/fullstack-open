@@ -3,6 +3,14 @@ const Notification = ({ message, color }) => {
     return null;
   }
 
-  return <div className={color === "error" ? "error" : "note"}>{message}</div>;
+  return (
+    <div
+      className={
+        color === "note" ? "note" : color === "error" ? "error" : "delete"
+      }
+    >
+      {message}
+    </div>
+  );
 };
 export default Notification;
