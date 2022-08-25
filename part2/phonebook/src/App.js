@@ -100,7 +100,7 @@ function App() {
   };
   return (
     <>
-      <h1>Phonebook</h1>
+      <h1>Heroku Phonebook</h1>
       <Notification message={errorMessage} color={color} />
       <Filter find={search} display={onTypeShow} />
 
