@@ -6,6 +6,7 @@ import Persons from "./components/Persons";
 import noteService from "./services/person";
 import person from "./services/person";
 import Notification from "./components/Notification";
+import Footer from "./components/Footer";
 
 function App() {
   const [persons, setPerson] = useState([]);
@@ -77,10 +78,20 @@ function App() {
       };
 
       //axios.post("http://localhost:3001/persons", newPerson)
-      noteService.create(newPerson).then((response) => {
-        setPerson([...persons, response.data]);
-      });
-      setErrorMessage("Added " + newPerson.name);
+      noteService
+        .create(newPerson)
+        .then((response) => {
+          // console.log("hellow");
+          setPerson([...persons, response.data]);
+          setErrorMessage("Added " + newPerson.name);
+        })
+        .catch((error) => {
+          setErrorMessage(error.response.data.error);
+          setTimeout(() => {
+            setErrorMessage("");
+          }, 2000);
+        });
+      //setErrorMessage("Added " + newPerson.name);==>mistake
       setColor("note");
       setTimeout(() => {
         setErrorMessage(null);
@@ -119,6 +130,7 @@ function App() {
         setErrorMessage={setErrorMessage}
         setColor={setColor}
       />
+      <Footer />
     </>
   );
 }
