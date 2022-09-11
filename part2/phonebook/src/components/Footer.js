@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <div style={footerStyle}>
       <br />
-      <em>Note app, TEJ Center 2022</em>
+      <em>Phonebook app, TEJ Center 2022</em>
     </div>
   );
 };
