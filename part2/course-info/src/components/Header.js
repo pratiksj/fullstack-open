@@ -1,4 +1,9 @@
-const Header = ({ head }) => {
-  return <h1>{head}</h1>;
+//import Part from "./Part";
+const Header = ({ course }) => {
+  return (
+    <div>
+      <h1>{course.name}</h1>
+    </div>
+  );
 };
 export default Header;

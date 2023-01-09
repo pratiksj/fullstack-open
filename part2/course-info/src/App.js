@@ -1,4 +1,5 @@
 import Course from "./components/Course";
+import Header from "./components/Header";
 function App() {
   const courses = [
     {
@@ -46,9 +47,13 @@ function App() {
   ];
 
   return (
-    <>
+    //
+    <div>
+      {/* {courses.map((course) => (
+        <Course key={course.id} course={course} />
+      ))} */}
       <Course course={courses} />
-    </>
+    </div>
   );
 }
 
